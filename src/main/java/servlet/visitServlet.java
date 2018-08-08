@@ -84,6 +84,7 @@ public class visitServlet extends HttpServlet {
         response.getWriter().write(data);
     }
 
+    //数量
     private void getTotalusers(HttpServletRequest request, HttpServletResponse response) {
         try {
             int product = ivisitservlce.getTotalusers();

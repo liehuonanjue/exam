@@ -27,35 +27,50 @@
     </tr>
 </table>
 <p>
-    <a href="javascript:page(1)">首页</a>|
+    <a href="javascript:page(i=1)">首页</a>|
     <a href="javascript: page(--i)">上一页</a>|
     <a href="javascript: page(++i)">下一页</a>|
     <a href="javascript: void(0)" class="mo">末页</a>
-    第<span id="no">1</span>页/ 工<span class="sum2"></span>页/
+    第<span id="no">1</span>页/ 工<span class="sum2">2</span>页/
     共<span class="sum"></span>条记录）
 </p>
 
 <script type="application/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="application/x-javascript">
 
-    $.get('/visitServlet?oper=getTotalusers', function (data) {
-        $(".sum").html(data);
-        $(".sum2").html(parseInt(data / 5) + 1);
-    });
-    $(".mo").click(function () {
-        page($(".sum2").html());
-    });
+    function fsum() {
+        $.get('/visitServlet?oper=getTotalusers', function (data) {
+            $(".sum").html(data);
+            $(".sum2").html(parseInt(data / 5) + 1);
+        });
+    }
 
+
+    $(".mo").click(function () {
+        i = $(".sum2").html();
+        page(i);
+    });
     var i = 1;
     $(function () {
+        fsum();
+        $("#no").html(i);
         page(i);
+
     })
 
-
     function page(index) {
-        $("#no").html(index);
+        if (i < 1) {
+            alert("不能再小了")
+            i++;
+            return
+        } else if (i > $(".sum2").html()) {
+            alert("不能再大了")
+            i--;
+            return;
+        }
+        $("#no").html(i);
         $.ajaxSettings.async = true;
-        $.getJSON('/visitServlet?oper=listselectpage', {page: index, by: "price"}, function (data) {
+        $.getJSON('/visitServlet?oper=listselectpage', {page: i, by: "price"}, function (data) {
             var tbody = $(".tab");
             tbody.html("");
             $.each(data, function (index, data) {

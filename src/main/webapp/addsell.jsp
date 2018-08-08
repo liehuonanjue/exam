@@ -13,7 +13,6 @@
 </head>
 <body>
 <span> 添加销售</span>
-${upwdname.id}
 <span>商品名称</span><select name="stair" id="name"></select>
 <span>销售单价:</span><input type="text" value="" id="price">
 <span>销售数量:</span><input type="text" value="" id="num">

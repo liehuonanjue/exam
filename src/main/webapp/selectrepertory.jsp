@@ -21,8 +21,8 @@
             $("#name").append("<option value =" + dom.id + ">" + dom.productName + "</option>");
         });
     });
-
-    $("#name").change(function () {
+    nam();
+    function nam() {
         $.getJSON('/visitServlet?oper=selectsale', function (data) {
             $.each(data, function (i, dom) {
                 if ($("#name").val() == dom.id) {
@@ -31,6 +31,9 @@
                 }
             });
         });
+    }
+    $("#name").change(function () {
+        nam()
 
     });
 
