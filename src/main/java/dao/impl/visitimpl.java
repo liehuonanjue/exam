@@ -85,8 +85,8 @@ public class visitimpl extends BaseDAO implements IvisitDAO {
     public List<SaleMould> getOnePage(int pageIndex, int pageSize, String by) throws Exception {
         List<SaleMould> list = new ArrayList<SaleMould>();
         String sql = "SELECT sale.*,product.productName,users.realName \n" +
-                "FROM sale,product,users WHERE users.id=sale.userId AND product.id=sale.producId  ORDER BY ?  LIMIT ?,? ";
-        Object[] paras = {by, (pageIndex - 1) * pageSize, pageSize};
+                "FROM sale,product,users WHERE users.id=sale.userId AND product.id=sale.producId  ORDER BY " + by + "  LIMIT ?,? ";
+        Object[] paras = {(pageIndex - 1) * pageSize, pageSize};
         ResultSet rs = executeQuery(sql, paras);
         while (rs.next()) {
             SaleMould sale = new SaleMould();

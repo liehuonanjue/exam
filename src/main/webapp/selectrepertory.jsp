@@ -22,6 +22,7 @@
         });
     });
     nam();
+
     function nam() {
         $.getJSON('/visitServlet?oper=selectsale', function (data) {
             $.each(data, function (i, dom) {
@@ -32,6 +33,7 @@
             });
         });
     }
+
     $("#name").change(function () {
         nam()
 

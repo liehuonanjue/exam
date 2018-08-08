@@ -34,7 +34,7 @@
         }, function (data) {
             if (data == "true") {
                 alert("添加成功")
-                document.location = 'index.jsp'
+                window.location.reload();
             } else {
                 alert("添加失败！")
                 window.location.reload();

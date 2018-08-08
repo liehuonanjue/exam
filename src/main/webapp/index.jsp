@@ -11,30 +11,24 @@
     <title>主界面22</title>
 </head>
 <body>
-<h1>欢迎${upwdname.realName} ${upwdname.id} <a href="#">退出登陆</a></h1>
-<ul class="nav" id="side-menu">
-    <li>
-        <a href="addsell.jsp" target="menuFrame"><b>销售</b></a>
-    </li>
-    <li>
-        <a href="selectsell.jsp" target="menuFrame"><b>销售信息</b></a>
-    </li>
-    <li>
-        <a href="selectrepertory.jsp" target="menuFrame"><b>查看库存</b></a>
-    </li>
-</ul>
+<h1>欢迎${upwdname.realName}<a href="/visitServlet?oper=removeAttribute">退出登陆</a></h1>
+<a href="javascript:void(0)" id="sale">销售</a>
+<a href="javascript:void(0)" id="findSale">销售信息查询</a>
+<a href="javascript:void(0)" id="find">查看库存</a>
+<iframe src="" width="100%" height="100%">
 
+</iframe>
 <script type="application/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="application/x-javascript">
-    ("li").on('click', function () {
-        var href = $(this).find("a").attr('href');
-        $('#mainContents').empty();
-        $('#mainContents').load("../new/" + href);
-        //阻止跳转
-        $(this).parents('li').addClass('active').siblings('li').removeClass('active');
-        return false;
+    $("#sale").bind("click", function () {
+        $("iframe").attr("src", "addsell.jsp");
     });
-
+    $("#findSale").bind("click", function () {
+        $("iframe").attr("src", "selectsell.jsp");
+    });
+    $("#find").bind("click", function () {
+        $("iframe").attr("src", "selectrepertory.jsp");
+    });
 </script>
 </body>
 </html>

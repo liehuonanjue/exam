@@ -72,7 +72,16 @@ public class visitServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else if (oper.equals("removeAttribute")) {
+            try {
+                System.out.println("注銷");
+                request.getSession().removeAttribute("upwdname");
+                response.sendRedirect("login.jsp");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     private void listselectpage(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -80,6 +89,8 @@ public class visitServlet extends HttpServlet {
         String by = request.getParameter("by"); // 当前页数
         List<SaleMould> list = ivisitservlce.getOnePage(ageIndexTemp, 5, by);
         String data = JSON.toJSONString(list);
+        System.out.println(by);
+        System.out.println(data);
         response.setCharacterEncoding("utf-8");
         response.getWriter().write(data);
     }

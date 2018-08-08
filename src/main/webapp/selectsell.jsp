@@ -12,7 +12,12 @@
 </head>
 <body>
 <span>这是信息</span>
-
+排序方式：
+<select id="by">
+    <option value="price">单笔总价</option>
+    <option value="saleDate">销售日期</option>
+</select>
+<input type="button" id="but" value=" 提交"/>
 <table border="1">
     <tr>
         <td>ID</td>
@@ -27,11 +32,11 @@
     </tr>
 </table>
 <p>
-    <a href="javascript:page(i=1)">首页</a>|
+    < <a href="javascript:page(i=1)">首页</a>|
     <a href="javascript: page(--i)">上一页</a>|
     <a href="javascript: page(++i)">下一页</a>|
-    <a href="javascript: void(0)" class="mo">末页</a>
-    第<span id="no">1</span>页/ 工<span class="sum2">2</span>页/
+    <a href="javascript: void(0)" class="mo">末页</a>|
+    第<span id="no">1</span>页/ 共<span class="sum2">2</span>页
     共<span class="sum"></span>条记录）
 </p>
 
@@ -41,7 +46,7 @@
     function fsum() {
         $.get('/visitServlet?oper=getTotalusers', function (data) {
             $(".sum").html(data);
-            $(".sum2").html(parseInt(data / 5) + 1);
+            $(".sum2").html(Math.ceil(data / 5));
         });
     }
 
@@ -57,6 +62,9 @@
         page(i);
 
     })
+    $("#but").click(function () {
+        page(i);
+    });
 
     function page(index) {
         if (i < 1) {
@@ -70,7 +78,7 @@
         }
         $("#no").html(i);
         $.ajaxSettings.async = true;
-        $.getJSON('/visitServlet?oper=listselectpage', {page: i, by: "price"}, function (data) {
+        $.getJSON('/visitServlet?oper=listselectpage', {page: i, by: $("#by").val()}, function (data) {
             var tbody = $(".tab");
             tbody.html("");
             $.each(data, function (index, data) {
